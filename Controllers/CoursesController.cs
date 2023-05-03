@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MyCourse.Models.Services.Application;
+using MyCourse.Models.Services.ViewModels;
 
 namespace MyCourse.Controllers
 {
@@ -10,8 +12,9 @@ namespace MyCourse.Controllers
     {
         public IActionResult Index()
         {
-            // return vieW restituisce la view di default chiamata index. Il parametro serve per richiamare una view con nome differente
-            return View();
+            var courseService = new CourseService();
+            List<CourseViewModel> courses = courseService.GetService();
+            return View(courses);
         }
         public IActionResult Detail(string id)
         {
