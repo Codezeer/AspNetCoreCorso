@@ -10,11 +10,12 @@ namespace MyCourse.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Sono index");            
+            // return vieW restituisce la view di default chiamata index. Il parametro serve per richiamare una view con nome differente
+            return View();
         }
         public IActionResult Detail(string id)
         {
-            return Content($"Sono Detail, ho ricevuto l'id {id}");
+            return View();
         }
     }
 }
