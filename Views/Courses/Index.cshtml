@@ -1,11 +1,14 @@
+
+@model List<CourseViewModel>;
+
 <h1>Catalogo dei corsi</h1>
 
-@for (int i = 1; i <= 10; i++)
+@foreach (CourseViewModel course in Model)
 {
 <hr>
 <div class="row course">
     <div class="col-md-1">
-        <img src="~/logo.svg" width="52" height="52">
+        <img src="" width="52" height="52">
     </div>
     <div class="col-md-5">
         <h2>Titolo del corso</h2>
