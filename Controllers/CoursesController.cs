@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyCourse.Models.Services.Application;
 using MyCourse.Models.Services.ViewModels;
@@ -13,12 +10,14 @@ namespace MyCourse.Controllers
         public IActionResult Index()
         {
             var courseService = new CourseService();
-            List<CourseViewModel> courses = courseService.GetService();
+            List<CourseViewModel> courses = courseService.GetCourses();
             return View(courses);
         }
-        public IActionResult Detail(string id)
+        public IActionResult Detail(int id)
         {
-            return View();
+            var courseService = new CourseService();
+            CourseDetailViewModel courses = courseService.GetCourse(id);
+            return View(courses);
         }
     }
 }
