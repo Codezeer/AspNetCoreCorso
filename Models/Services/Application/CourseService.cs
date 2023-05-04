@@ -32,7 +32,7 @@ namespace MyCourse.Models.Services.Application
             return courseList;
         }
 
-        public CourseDetailViewModel GetCourse(int id)
+        public CourseDetailViewModel GetCourseById(int id)
         {
             var rand = new Random();
             var price = Convert.ToDecimal(rand.NextDouble() * 10 + 10);

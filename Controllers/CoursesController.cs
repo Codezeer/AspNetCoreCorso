@@ -17,7 +17,7 @@ namespace MyCourse.Controllers
         public IActionResult Detail(int id)
         {
             var courseService = new CourseService();
-            CourseDetailViewModel course = courseService.GetCourse(id);
+            CourseDetailViewModel course = courseService.GetCourseById(id);
             ViewData["Title"] = course.Title;
             return View(course);
         }
