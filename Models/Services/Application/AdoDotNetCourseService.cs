@@ -23,9 +23,16 @@ namespace MyCourse.Models.Services.Application
 
         public List<CourseViewModel> GetCourses()
         {
-            string query = "SELECT * FROM COURSES";
+            string query = "SELECT Id, Title, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM COURSES";
             DataSet dataSet = db.Query(query);
-            throw new NotImplementedException();
+            var datatable = dataSet.Tables[0];
+            var courseList = new List<CourseViewModel>();
+            foreach(DataRow courseRow in datatable.Rows)
+            {
+                CourseViewModel course = CourseViewModel.FromDataRow(courseRow);                
+                courseList.Add(course);
+            }
+            return courseList;
         }
     }
 }
