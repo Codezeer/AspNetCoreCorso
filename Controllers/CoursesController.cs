@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using MyCourse.Models.Services.Application;
-using MyCourse.Models.Services.ViewModels;
+using MyCourse.Models.ViewModels;
 
 namespace MyCourse.Controllers
 {

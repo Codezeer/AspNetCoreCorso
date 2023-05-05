@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using MyCourse.Models.Enums;
 using MyCourse.Models.ValueObjects;
 
-namespace MyCourse.Models.Services.ViewModels
+namespace MyCourse.Models.ViewModels
 {
-     public class CourseViewModel
+      public class CourseViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -20,7 +20,7 @@ namespace MyCourse.Models.Services.ViewModels
 
         public static CourseViewModel FromDataRow(DataRow courseRow)
         {
-             var courseViewModel = new CourseViewModel {
+            var courseViewModel = new CourseViewModel {
                 Title = Convert.ToString(courseRow["Title"]),
                 ImagePath = Convert.ToString(courseRow["ImagePath"]),
                 Author = Convert.ToString(courseRow["Author"]),
