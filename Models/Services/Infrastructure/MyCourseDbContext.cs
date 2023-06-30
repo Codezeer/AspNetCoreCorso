@@ -15,8 +15,8 @@ namespace MyCourse.Models.Entities
         {
         }
 
-        public virtual DbSet<Courses> Courses { get; set; }
-        public virtual DbSet<Lessons> Lessons { get; set; }
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<Lesson> Lessons { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,8 +31,29 @@ namespace MyCourse.Models.Entities
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
-            modelBuilder.Entity<Courses>(entity =>
+            modelBuilder.Entity<Course>(entity =>
             {
+                entity.ToTable("Courses");//superfluo se la tabella si chiama come l'entity
+                entity.HasKey(course =>course.Id); //superfluo se la propietà si chiama id o CoursesId
+
+                entity.OwnsOne(course => course.CurrentPrice, builder =>{
+                    builder.Property(money => money.Currency)
+                    .HasConversion<string>()
+                    .HasColumnName("CurrentPrice_Currency");//superfluo perchp le nostr colonne seguono già le convenzioni dei nomi
+                    builder.Property(money => money.Amount).HasColumnName("CurrentPrice_Amount");//superfluo perchp le nostr colonne seguono già le convenzioni dei nomi
+                });
+
+                 entity.OwnsOne(course => course.FullPrice, builder =>{
+                    builder.Property(money => money.Currency)
+                    .HasConversion<string>();
+                });
+                
+                entity.HasMany(course => course.Lessons)
+                .WithOne(lesson => lesson.Course)
+                .HasForeignKey(lesson => lesson.CourseId);// superflua se la proripetà si chiama CourseId
+
+                #region Mapping autogenerato
+                /*
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Author)
@@ -72,10 +93,15 @@ namespace MyCourse.Models.Entities
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("TEXT (100)");
+                */
+                #endregion
+                
             });
 
-            modelBuilder.Entity<Lessons>(entity =>
+            modelBuilder.Entity<Lesson>(entity =>
             {
+                #region 
+                /*
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Description).HasColumnType("TEXT (10000)");
@@ -92,6 +118,9 @@ namespace MyCourse.Models.Entities
                 entity.HasOne(d => d.Course)
                     .WithMany(p => p.Lessons)
                     .HasForeignKey(d => d.CourseId);
+                */
+                #endregion
+                
             });
         }
     }
