@@ -101,7 +101,9 @@ namespace MyCourse.Models.Services.Infrastructure
 
             modelBuilder.Entity<Lesson>(entity =>
             {
-                #region 
+                entity.HasOne(Lesson => Lesson.Course)
+                .WithMany(course => course.Lessons);
+                #region Mapping autogenerato da dbfirst
                 /*
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
