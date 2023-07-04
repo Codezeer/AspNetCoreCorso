@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using MyCourse.Models.Entities;
 
 namespace MyCourse.Models.ViewModels
 {
@@ -22,6 +23,16 @@ namespace MyCourse.Models.ViewModels
                 Duration = TimeSpan.Parse(Convert.ToString(dataRow["Duration"])),
             };
             return lessonViewModel;
+        }
+        public static LessonViewModel FromEntity(Lesson lesson)
+        {
+            return new LessonViewModel
+            {
+                Id = lesson.Id,
+                Title = lesson.Title,
+                Duration = lesson.Duration,
+                Description = lesson.Description
+            };
         }
     }
 }

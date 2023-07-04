@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using MyCourse.Models.Entities;
 using MyCourse.Models.Enums;
 using MyCourse.Models.ValueObjects;
 
@@ -36,6 +37,18 @@ namespace MyCourse.Models.ViewModels
                 Id = Convert.ToInt32(courseRow["Id"])
             };
             return courseViewModel;
+        }
+        public static CourseViewModel FromEntity(Course course)
+        {
+            return new CourseViewModel {
+                Id = course.Id,
+                Title = course.Title,
+                ImagePath = course.ImagePath,
+                Author = course.Author,
+                Rating = course.Rating,
+                CurrentPrice = course.CurrentPrice,
+                FullPrice = course.FullPrice
+            };
         }
     }
 }

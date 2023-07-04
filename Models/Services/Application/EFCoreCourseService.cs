@@ -17,42 +17,26 @@ namespace MyCourse.Models.Services.Application
         }
         public async Task<CourseDetailViewModel> GetCourseByIdAsync(int id)
         {
-            CourseDetailViewModel courseDetail = await dbContext.Courses
+           IQueryable<CourseDetailViewModel> queryLinq = dbContext.Courses
+                .AsNoTracking()
+                .Include(course => course.Lessons)
                 .Where(course => course.Id == id)
-                .Select(course => new CourseDetailViewModel{
-                    Id = course.Id,
-                    Title = course.Title,
-                    ImagePath = course.ImagePath,
-                    Author = course.Author,
-                    Rating = course.Rating,
-                    CurrentPrice = course.CurrentPrice,
-                    FullPrice = course.FullPrice,
-                    Description = course.Description,
-                    Lessons = course.Lessons.Select(lesson=> new LessonViewModel{
-                      Id = lesson.Id,
-                      Title = lesson.Title,
-                      Description = lesson.Description,
-                      Duration = lesson.Duration  
-                    }).ToList()
-                })
-                .SingleAsync();//restituisce il primo elemento in elenco ma se l'elenco è 0 o +1 solleva un eccezione
+                .Select(course => CourseDetailViewModel.FromEntity(course)); //Usando metodi statici come FromEntity, la query potrebbe essere inefficiente. Mantenere il mapping nella lambda oppure usare un extension method personalizzato
             
-            return courseDetail;
+            CourseDetailViewModel viewModel = await queryLinq.SingleAsync();
+                                                           //.FirstOrDefaultAsync(); //Restituisce null se l'elenco è vuoto e non solleva mai un'eccezione
+                                                           //.SingleOrDefaultAsync(); //Tollera il fatto che l'elenco sia vuoto e in quel caso restituisce null, oppure se l'elenco contiene più di 1 elemento, solleva un'eccezione
+                                                           //.FirstAsync(); //Restituisce il primo elemento, ma se l'elenco è vuoto solleva un'eccezione
+                
+            return viewModel;
         }
 
         public async Task<List<CourseViewModel>> GetCoursesAsync()
         {
-            List<CourseViewModel> courses = await dbContext.Courses.Select(course => 
-            new CourseViewModel{
-                Id = course.Id,
-                Title = course.Title,
-                ImagePath = course.ImagePath,
-                Author = course.Author,
-                Rating = course.Rating,
-                CurrentPrice = course.CurrentPrice,
-                FullPrice = course.FullPrice
-            }).ToListAsync();
+            IQueryable<CourseViewModel> queryLinq = dbContext.Courses.Select(course => 
+            CourseViewModel.FromEntity(course));
 
+            var courses = await queryLinq.ToListAsync();
             return courses;
         }
     }
