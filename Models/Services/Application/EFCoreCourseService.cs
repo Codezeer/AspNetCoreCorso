@@ -33,7 +33,9 @@ namespace MyCourse.Models.Services.Application
 
         public async Task<List<CourseViewModel>> GetCoursesAsync()
         {
-            IQueryable<CourseViewModel> queryLinq = dbContext.Courses.Select(course => 
+            IQueryable<CourseViewModel> queryLinq = dbContext.Courses
+            .AsNoTracking()
+            .Select(course => 
             CourseViewModel.FromEntity(course));
 
             var courses = await queryLinq.ToListAsync();
