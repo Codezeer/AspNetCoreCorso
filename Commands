@@ -1,3 +1,6 @@
 dotnet user-secrets set "ConnectionStrings:Default" "Data source=Data/Test.db"
 Configurazione in ASP.NET Core
 https://learn.microsoft.com/it-it/aspnet/core/fundamentals/configuration/?view=aspnetcore-7.0&viewFallbackFrom=aspnetcore-2.2#providers
+
+Servizio di logging - Registrazione in .NET Core e ASP.NET Core
+https://learn.microsoft.com/it-it/aspnet/core/fundamentals/logging/?view=aspnetcore-7.0&viewFallbackFrom=aspnetcore-2.2

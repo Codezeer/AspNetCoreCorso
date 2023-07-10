@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyCourse.Models.Options;
 
@@ -12,8 +13,10 @@ namespace MyCourse.Models.Services.Infrastructure
 {
     public class SqliteDatabaseAccessor : IDatabaseAccessor
     {
-        public SqliteDatabaseAccessor(IOptionsMonitor<ConnectionStringsOptions> connectionStringsOptions)
+        private readonly ILogger<SqliteDatabaseAccessor> logger;
+        public SqliteDatabaseAccessor(ILogger<SqliteDatabaseAccessor> logger, IOptionsMonitor<ConnectionStringsOptions> connectionStringsOptions)
         {
+            this.logger = logger;
             ConnectionStringsOptions = connectionStringsOptions;
         }
 
@@ -21,7 +24,7 @@ namespace MyCourse.Models.Services.Infrastructure
 
         public async Task<DataSet> QueryAsync(FormattableString formattableQuery)
         {
-
+            logger.LogInformation(formattableQuery.Format, formattableQuery.GetArguments());
             //Creiamo dei SqliteParameter a partire dalla FormattableString
             var queryArguments = formattableQuery.GetArguments();
             var sqliteParameters = new List<SqliteParameter>();

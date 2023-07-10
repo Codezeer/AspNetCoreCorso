@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MyCourse.Models.Options;
 using MyCourse.Models.Services.Infrastructure;
@@ -14,13 +15,17 @@ namespace MyCourse.Models.Services.Application
     {
         private readonly IDatabaseAccessor db;
         private readonly IOptionsMonitor<CoursesOptions> coursesOption;
-        public AdoDotNetCourseService(IDatabaseAccessor db, IOptionsMonitor<CoursesOptions> coursesOption)
+        private readonly ILogger<AdoDotNetCourseService> logger;
+        public AdoDotNetCourseService(ILogger<AdoDotNetCourseService> logger, IDatabaseAccessor db, IOptionsMonitor<CoursesOptions> coursesOption)
         {
+            this.logger = logger;
             this.db = db;
             this.coursesOption = coursesOption;
         }
         public async Task<CourseDetailViewModel> GetCourseByIdAsync(int id)
         {
+            logger.LogInformation("Course {id} requested", id);
+            
              FormattableString query = $@"SELECT Id, Title, Description, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses WHERE Id={id}
             ; SELECT Id, Title, Description, Duration FROM Lessons WHERE CourseId={id}";
 
