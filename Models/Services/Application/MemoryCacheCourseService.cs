@@ -20,6 +20,7 @@ namespace MyCourse.Models.Services.Application
         public Task<CourseDetailViewModel> GetCourseByIdAsync(int id)
         {
             return memoryCache.GetOrCreateAsync($"Course{id}", cacheEntry =>{
+                cacheEntry.SetSize(1);
                 cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60));
                 return courseService.GetCourseByIdAsync(id);
             });
@@ -28,6 +29,7 @@ namespace MyCourse.Models.Services.Application
         public Task<List<CourseViewModel>> GetCoursesAsync()
         {
             return memoryCache.GetOrCreateAsync($"Courses", cacheEntry =>{
+                cacheEntry.SetSize(1);
                 cacheEntry.SetAbsoluteExpiration(TimeSpan.FromSeconds(60));
                 return courseService.GetCoursesAsync();
             });
