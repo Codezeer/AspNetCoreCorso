@@ -4,3 +4,7 @@ https://learn.microsoft.com/it-it/aspnet/core/fundamentals/configuration/?view=a
 
 Servizio di logging - Registrazione in .NET Core e ASP.NET Core
 https://learn.microsoft.com/it-it/aspnet/core/fundamentals/logging/?view=aspnetcore-7.0&viewFallbackFrom=aspnetcore-2.2
+
+ASP.NET Core test di carico/stress
+https://learn.microsoft.com/it-it/aspnet/core/test/load-tests?view=aspnetcore-2.2
+west wind websurge docs/80. Misurare le prestazioni con un test di carico.mp4
