@@ -30,6 +30,7 @@ namespace MyCourse
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ICourseService,AdoDotNetCourseService>();
+            services.AddTransient<ICachedCourseService,MemoryCacheCourseService>();
             //services.AddTransient<ICourseService,EFCoreCourseService>();
             services.AddTransient<IDatabaseAccessor,SqliteDatabaseAccessor>();
 
