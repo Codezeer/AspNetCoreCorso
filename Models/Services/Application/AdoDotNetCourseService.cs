@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MyCourse.Models.Exceptions;
 using MyCourse.Models.Options;
 using MyCourse.Models.Services.Infrastructure;
 using MyCourse.Models.ViewModels;
@@ -24,6 +25,7 @@ namespace MyCourse.Models.Services.Application
         }
         public async Task<CourseDetailViewModel> GetCourseByIdAsync(int id)
         {
+            //non è interpolazione di stringa
             logger.LogInformation("Course {id} requested", id);
             
              FormattableString query = $@"SELECT Id, Title, Description, ImagePath, Author, Rating, FullPrice_Amount, FullPrice_Currency, CurrentPrice_Amount, CurrentPrice_Currency FROM Courses WHERE Id={id}
@@ -34,7 +36,8 @@ namespace MyCourse.Models.Services.Application
             //Course
             var courseTable = dataSet.Tables[0];
             if (courseTable.Rows.Count != 1) {
-                throw new InvalidOperationException($"Did not return exactly 1 row for Course {id}");
+                logger.LogWarning("Course {id} not found");
+                throw new CourseNotFoundException(id);
             }
             var courseRow = courseTable.Rows[0];
             var courseDetailViewModel = CourseDetailViewModel.FromDataRow(courseRow);
