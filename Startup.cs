@@ -29,6 +29,7 @@ namespace MyCourse
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCaching();
             services.AddMvc(options =>{
 
                 var homeProfile = new CacheProfile();
@@ -79,6 +80,7 @@ namespace MyCourse
     
             }
             app.UseStaticFiles();
+            app.UseResponseCaching();
 
             //app.UseMvcWithDefaultRoute();
             app.UseMvc(routeBuilder =>{

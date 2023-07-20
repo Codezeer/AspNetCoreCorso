@@ -8,3 +8,6 @@ https://learn.microsoft.com/it-it/aspnet/core/fundamentals/logging/?view=aspnetc
 ASP.NET Core test di carico/stress
 https://learn.microsoft.com/it-it/aspnet/core/test/load-tests?view=aspnetcore-2.2
 west wind websurge docs/80. Misurare le prestazioni con un test di carico.mp4
+
+Redis backed response caching in ASP.NET Core (84. Migliorare i tempi di risposta con il ResponseCachingMiddleware)
+https://www.tpeczek.com/2018/03/redis-backed-response-caching-in-aspnet.html
