@@ -29,7 +29,15 @@ namespace MyCourse
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(options =>{
+
+                var homeProfile = new CacheProfile();
+                //homeProfile.Location = Configuration.GetValue<ResponseCacheLocation>("ResponseCache:Home:Location");
+                //homeProfile.Duration = Configuration.GetValue<int>("ResponseCache:Home:Duration");
+                //oppure
+                Configuration.Bind("ResponseCache:Home",homeProfile);
+                options.CacheProfiles.Add("Home", homeProfile);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddTransient<ICourseService,AdoDotNetCourseService>();
             services.AddTransient<ICachedCourseService,MemoryCacheCourseService>();
             //services.AddTransient<ICourseService,EFCoreCourseService>();
