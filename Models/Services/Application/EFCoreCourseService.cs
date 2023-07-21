@@ -31,9 +31,15 @@ namespace MyCourse.Models.Services.Application
             return viewModel;
         }
 
-        public async Task<List<CourseViewModel>> GetCoursesAsync()
+        public async Task<List<CourseViewModel>> GetCoursesAsync(string search)
         {
+            /*
+            Search che operando alla sua sinistra viene valutato e se vale null viene restituito il valore
+            del secondo operando quindi stringa vuota, altrimenti viene restituito il suo stesso valore.
+            */
+            search = search ?? "";
             IQueryable<CourseViewModel> queryLinq = dbContext.Courses
+            .Where(course => course.Title.Contains(search))
             .AsNoTracking()
             .Select(course => 
             CourseViewModel.FromEntity(course));
