@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using MyCourse.Models.Options;
 using MyCourse.Models.Services.Infrastructure;
 using MyCourse.Models.ViewModels;
 
@@ -10,9 +13,11 @@ namespace MyCourse.Models.Services.Application
     public class EFCoreCourseService : ICourseService
     {
         private readonly MyCourseDbContext dbContext;
+        public IOptionsMonitor<CoursesOptions> CoursesOption { get; }
 
-        public EFCoreCourseService(MyCourseDbContext dbContext)
+        public EFCoreCourseService(MyCourseDbContext dbContext, IOptionsMonitor<CoursesOptions> coursesOption)
         {
+            this.CoursesOption = coursesOption;
             this.dbContext = dbContext;
         }
         public async Task<CourseDetailViewModel> GetCourseByIdAsync(int id)
@@ -31,14 +36,21 @@ namespace MyCourse.Models.Services.Application
             return viewModel;
         }
 
-        public async Task<List<CourseViewModel>> GetCoursesAsync(string search)
+        public async Task<List<CourseViewModel>> GetCoursesAsync(string search, int page)
         {
             /*
             Search che operando alla sua sinistra viene valutato e se vale null viene restituito il valore
             del secondo operando quindi stringa vuota, altrimenti viene restituito il suo stesso valore.
             */
             search = search ?? "";
+
+            page = Math.Max(1, page);
+            int limit = this.CoursesOption.CurrentValue.PerPage;
+            int offset = (page-1) * limit;
+
             IQueryable<CourseViewModel> queryLinq = dbContext.Courses
+            .Skip(offset)
+            .Take(limit)
             .Where(course => course.Title.Contains(search))
             .AsNoTracking()
             .Select(course => 
