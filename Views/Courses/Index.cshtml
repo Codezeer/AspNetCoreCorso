@@ -5,13 +5,12 @@
         <h1>@ViewData["Title"]</h1>
     </div>
     <div class="col-md-4 d-flex align-items-center">
-        <!--asp-controller="Courses" asp-action="Index" in questo caso non serve dato che la view è già associata a questo percorso-->  
         <form asp-controller="Courses" asp-action="Index" method="get">
             <div class="input-group">
-            <input class="form-control" type="text" name="search" placeholder="Cerca...">
-            <div class="input-group-append">
-                    <button class="input-group-text"><i class="fas fa-search"></i></button>
-            </div>
+                <input type="text" name="search" class="form-control" placeholder="Cerca..." aria-label="Cerca..." aria-describedby="search-button">
+                <div class="input-group-append">
+                    <button class="input-group-text" id="search-button"><i class="fas fa-search"></i></button>
+                </div>
             </div>
         </form>
     </div>
