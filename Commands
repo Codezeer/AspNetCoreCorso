@@ -11,3 +11,7 @@ west wind websurge docs/80. Misurare le prestazioni con un test di carico.mp4
 
 Redis backed response caching in ASP.NET Core (84. Migliorare i tempi di risposta con il ResponseCachingMiddleware)
 https://www.tpeczek.com/2018/03/redis-backed-response-caching-in-aspnet.html
+
+Semplificare la gestione degli array in querystring in ASP.NET Core
+86. Value binder/provider personalizzato
+https://www.aspitalia.com/script/1330/Semplificare-Gestione-Array-Querystring-ASP.NET-Core.aspx
