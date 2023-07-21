@@ -21,3 +21,10 @@ https://www.ted.com/talks/barry_schwartz_the_paradox_of_choice/transcript?langua
 
 ?? E?? = operatori - operatori null-coalescing
 https://learn.microsoft.com/it-it/dotnet/csharp/language-reference/operators/null-coalescing-operator
+
+dotnet tool instsall -g dotnet-script
+
+dotnet script init
+
+System.Linq.Dynamic.Core per costruire query dinamiche linq to sql
+https://github.com/zzzprojects/System.Linq.Dynamic.Core
