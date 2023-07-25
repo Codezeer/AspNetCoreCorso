@@ -1,5 +1,5 @@
 
-@model List<CourseViewModel>;
+@model CourseListVewModel;
 <div class="row">
     <div class="col-md-8">
         <h1>@ViewData["Title"]</h1>
@@ -7,7 +7,7 @@
     <div class="col-md-4 d-flex align-items-center">
         <form asp-controller="Courses" asp-action="Index" method="get">
             <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Cerca..." aria-label="Cerca..." aria-describedby="search-button">
+                <input type="text" name="search" class="form-control" placeholder="Cerca..." aria-label="Cerca..." aria-describedby="search-button" value="@Model.Input.Search">
                 <div class="input-group-append">
                     <button class="input-group-text" id="search-button"><i class="fas fa-search"></i></button>
                 </div>
@@ -18,12 +18,12 @@
 
 <div class="row">
     <div class="col-md-1"></div>
-    <div class="col-md-5"><a asp-route-orderby="Title" asp-route-ascending="true">Titolo</a></div>
-    <div class="col-md-2"><a asp-route-orderby="Rating" asp-route-ascending="true">Rating</a></div>
-    <div class="col-md-2"><a asp-route-orderby="CurrentPrice" asp-route-ascending="true">Prezzo</a></div>
+    <div class="col-md-5"><a asp-route-orderby="Title" asp-route-ascending="@(Model.Input.OrderBy == "Title" ? !Model.Input.Ascending : true)" asp-route-search="@Model.Input.Search">Titolo @if (Model.Input.OrderBy == "Title") { <i class="fas fa-fas fa-caret-@(Model.Input.Ascending ? "up" : "down")"></i>}</a></div>
+    <div class="col-md-2"><a asp-route-orderby="Rating" asp-route-ascending="@(Model.Input.OrderBy == "Rating" ? !Model.Input.Ascending : true)" asp-route-search="@Model.Input.Search">Rating @if (Model.Input.OrderBy == "Rating") { <i class="fas fa-fas fa-caret-@(Model.Input.Ascending ? "up" : "down")"></i>}</a></div>
+    <div class="col-md-2"><a asp-route-orderby="CurrentPrice" asp-route-ascending="@(Model.Input.OrderBy == "CurrentPrice" ? !Model.Input.Ascending : true)" asp-route-search="@Model.Input.Search">Prezzo @if (Model.Input.OrderBy == "CurrentPrice") { <i class="fas fa-fas fa-caret-@(Model.Input.Ascending ? "up" : "down")"></i>}</a></div>
     <div class="col-md-2"></div>
 </div>
-@foreach (CourseViewModel course in Model)
+@foreach (CourseViewModel course in Model.Courses)
 {
 <hr>
 <div class="row course">
