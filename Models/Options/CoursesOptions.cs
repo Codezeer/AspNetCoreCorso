@@ -12,10 +12,11 @@ namespace MyCourse.Models.Options
     public partial class CoursesOptions
     {
         public int PerPage { get; set; }
-        public CoursesOrder Order { get; set; }
+        public CoursesOrderOptions Order { get; set; }
+        public int InHome { get; set; }
     }
 
-    public partial class CoursesOrder
+    public partial class CoursesOrderOptions
     {
         public string By { get; set; }
        public bool Ascending { get; set; }

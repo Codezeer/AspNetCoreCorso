@@ -11,5 +11,7 @@ namespace MyCourse.Models.Services.Application
     {
         Task<ListViewModel<CourseViewModel>> GetCoursesAsync(CourseListInputModel model);
         Task<CourseDetailViewModel> GetCourseByIdAsync(int id);
+        Task<List<CourseViewModel>> GetBestRatingCoursesAsync();
+        Task<List<CourseViewModel>> GetMostRecentCoursesAsync();
     }
 }

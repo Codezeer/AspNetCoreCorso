@@ -6,7 +6,7 @@ using MyCourse.Models.ViewModels;
 
 namespace MyCourse.Models.Services.Application
 {
-    public interface ICachedCourseService:ICourseService
+    public interface ICachedCourseService : ICourseService
     {
     }
 }
