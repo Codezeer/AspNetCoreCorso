@@ -37,7 +37,7 @@ namespace MyCourse.Models.Services.Application
                 
             return viewModel;
         }
-        public async Task<List<CourseViewModel>> GetCoursesAsync(CourseListInputModel model)
+        public async Task<ListViewModel<CourseViewModel>> GetCoursesAsync(CourseListInputModel model)
         {
             
             IQueryable<Course> baseQuery = dbContext.Courses;
@@ -87,15 +87,23 @@ namespace MyCourse.Models.Services.Application
             }
 
             IQueryable<CourseViewModel> queryLinq = baseQuery
-            .Skip(model.Offset)
-            .Take(model.Limit)
             .Where(course => course.Title.Contains(model.Search))
             .AsNoTracking()
             .Select(course => 
             CourseViewModel.FromEntity(course));
 
-            var courses = await queryLinq.ToListAsync();
-            return courses;
+            var courses = await queryLinq
+            .Skip(model.Offset)
+            .Take(model.Limit)
+            .ToListAsync();
+            
+            int totalCount = await queryLinq.CountAsync();
+            ListViewModel<CourseViewModel> result = new ListViewModel<CourseViewModel>{
+                Results = courses,
+                TotalCount = totalCount
+            };
+            
+            return result;
         }
     }
 }
