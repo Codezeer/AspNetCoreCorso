@@ -31,3 +31,6 @@ https://github.com/zzzprojects/System.Linq.Dynamic.Core
 
 Creare helper tag in ASP.NET Core
 https://learn.microsoft.com/it-it/aspnet/core/mvc/views/tag-helpers/authoring?view=aspnetcore-2.2
+
+Componenti di visualizzazione in ASP.NET Core (ViewComponent)
+https://learn.microsoft.com/it-it/aspnet/core/mvc/views/view-components?view=aspnetcore-7.0
